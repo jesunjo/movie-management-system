@@ -8,5 +8,10 @@
         "name": "Barbie",
         "year": 2023,
         "genre": "Comedy"
+    },
+    {
+        "name": "The Flash",
+        "year": 2023,
+        "genre": "Action"
     }
 ]
