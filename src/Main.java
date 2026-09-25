@@ -8,9 +8,9 @@ public class Main {
         while (choice != 4) {
             System.out.println("\n| Movie Manager |\n");
             System.out.println("1. Search Movies");
-            System.out.println("2. View Watchlist:");
-            System.out.println("3. View Watched List:");
-            System.out.println("4. Exit:");
+            System.out.println("2. View Watchlist");
+            System.out.println("3. View Watched List");
+            System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
 
             String userInput = input.nextLine().trim();
