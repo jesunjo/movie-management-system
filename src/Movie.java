@@ -12,17 +12,17 @@ public class Movie {
     public String getTitle() {
         return title;
     }
-    
+
     public String getGenre() {
         return genre;
     }
 
-    public int year() {
+    public int getYear() {
         return year;
     }
 
-    @Override 
+    @Override
     public String toString() {
-        return title + " (" + year + ") - " + genre; //This can be added onto if we want. more info displayed
+        return title + " (" + year + ") - " + genre;
     }
 }

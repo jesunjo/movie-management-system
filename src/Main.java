@@ -6,7 +6,7 @@ public class Main {
         int choice = 0;
 
         while (choice != 4) {
-            System.out.println("Movie Manager\n");
+            System.out.println("\n| Movie Manager |\n");
             System.out.println("1. Search Movies");
             System.out.println("2. View Watchlist:");
             System.out.println("3. View Watched List:");
@@ -15,6 +15,7 @@ public class Main {
 
             String userInput = input.nextLine().trim();
 
+            // Removing the period in case user inputs it.
             if (userInput.endsWith(".")) {
                 userInput = userInput.substring(0, userInput.length() - 1);
             }
@@ -27,21 +28,21 @@ public class Main {
                 continue;
             }
             
-
-            if (choice == 1) {
-                System.out.println("Search Movies option selected");
-            }
-            else if (choice == 2) {
-                System.out.println("View Watchlist option selected");
-            }
-            else if (choice == 3) {
-                System.out.println("View Watched list option selected");
-            }
-            else if (choice == 4) {
-                System.out.println("Exiting Movie Manager...");
-            }
-            else {
-                System.out.println("Invalid option. Please type any of the numbers listed above"); 
+            switch (choice) {
+                case 1:
+                    SearchMenu.open(input);
+                    break;
+                case 2:
+                    System.out.println("View Watchlist option selected");
+                    break;
+                case 3:
+                    System.out.println("View Watched list option selected");
+                    break;
+                case 4:
+                    System.out.println("Exiting Movie Manager...");
+                    break;
+                default:
+                    System.out.println("Invalid option. Please type any of the numbers listed above");
             }
         }
 
