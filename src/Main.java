@@ -3,8 +3,10 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        MovieDatabase database = new MovieDatabase();
         int choice = 0;
 
+        // Main menu loop
         while (choice != 4) {
             System.out.println("\n| Movie Manager |\n");
             System.out.println("1. Search Movies");
@@ -28,9 +30,10 @@ public class Main {
                 continue;
             }
             
+            // Where the selection magic happens
             switch (choice) {
                 case 1:
-                    SearchMenu.open(input);
+                    SearchMenu.open(input, database); //The way this is set up opens the search menu and all its stuff.
                     break;
                 case 2:
                     System.out.println("View Watchlist option selected");

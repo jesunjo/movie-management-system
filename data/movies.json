@@ -1,17 +1,22 @@
 [
-    {
-        "name": "Oppenheimer",
-        "year": 2023,
-        "genre": "Thriller"
-    },
-    {
-        "name": "Barbie",
-        "year": 2023,
-        "genre": "Comedy"
-    },
-    {
-        "name": "The Flash",
-        "year": 2023,
-        "genre": "Action"
-    }
+  {
+    "title": "Interstellar",
+    "genre": "Sci-Fi",
+    "year": 2014
+  },
+  {
+    "title": "Shrek",
+    "genre": "Comedy",
+    "year": 2001
+  },
+  {
+    "title": "Shrek 2",
+    "genre": "Comedy",
+    "year": 2004
+  },
+  {
+    "title": "The Interview",
+    "genre": "Comedy",
+    "year": 2014
+  }
 ]

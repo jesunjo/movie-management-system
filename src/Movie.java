@@ -1,3 +1,5 @@
+// Represents one movie from the movie database.
+// This object is shared by search, watchlist, and watched-list features.
 public class Movie {
     private String title;
     private String genre;
@@ -23,6 +25,6 @@ public class Movie {
 
     @Override
     public String toString() {
-        return title + " (" + year + ") - " + genre;
+        return title + " (" + year + ") - " + genre; // How the movies display
     }
 }
