@@ -4,6 +4,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         MovieDatabase database = new MovieDatabase();
+        Watchlist watchlist = new Watchlist();
+        ViewedList viewedList = new ViewedList();
         int choice = 0;
 
         // Main menu loop
@@ -11,7 +13,7 @@ public class Main {
             System.out.println("\n| Movie Manager |\n");
             System.out.println("1. Search Movies");
             System.out.println("2. View Watchlist");
-            System.out.println("3. View Watched List");
+            System.out.println("3. Viewed List");
             System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
 
@@ -33,13 +35,13 @@ public class Main {
             // Where the selection magic happens
             switch (choice) {
                 case 1:
-                    SearchMenu.open(input, database); //The way this is set up opens the search menu and all its stuff.
+                    SearchMenu.open(input, database, watchlist, viewedList); //The way this is set up opens the search menu and all its stuff.
                     break;
                 case 2:
-                    System.out.println("View Watchlist option selected");
+                    //something.open(input, watchlist);
                     break;
                 case 3:
-                    System.out.println("View Watched list option selected");
+                    //something.open(input, viewedList);
                     break;
                 case 4:
                     System.out.println("Exiting Movie Manager...");

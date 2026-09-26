@@ -3,6 +3,7 @@
 // Other classes should use methods like search() and getAllMovies()
 // Instead of accessing the hashmap directly
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,5 +65,28 @@ public class MovieDatabase {
     // Hashmap order is not guaranteed, so dont rely on this list being sorted.
     public ArrayList<Movie> getAllMovies() {
         return new ArrayList<>(movies.values());
+    }
+
+    //add movie method to call
+    public boolean addMovie(Movie movie) {
+        String key = movie.getTitle().trim().toLowerCase();
+
+        if (movies.containsKey(key)) {
+            return false; // Movie exists
+        }
+        movies.put(key, movie);
+        saveMovies();
+        return true; // Movie added
+    }
+
+    // saving movie method
+    private void saveMovies() {
+        Gson gson = new Gson();
+        
+        try (FileWriter writer = new FileWriter("data/movies.json")) {
+            gson.toJson(movies.values(), writer);
+        } catch (IOException e) {
+            System.out.println("Could not save movie to file");
+        }
     }
 }

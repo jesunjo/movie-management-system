@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SearchMenu {
-    public static void open(Scanner input, MovieDatabase database) {
+    public static void open(Scanner input, MovieDatabase database, Watchlist watchlist, ViewedList viewedList) {
         boolean search = true;
 
         // Search menu loop
@@ -31,10 +31,10 @@ public class SearchMenu {
 
             switch (choice) {
                 case 1:
-                    browseMovies(input, database);
+                    browseMovies(input, database, watchlist, viewedList);
                     break;
                 case 2:
-                    //addNewMovie(input);
+                    addNewMovie(input, database);
                     break;
                 case 3:
                     search = false;
@@ -45,26 +45,33 @@ public class SearchMenu {
         }
     }
     // The browseMovies method
-    private static void browseMovies(Scanner input, MovieDatabase database) {
+    private static void browseMovies(Scanner input, MovieDatabase database, Watchlist watchlist, ViewedList viewedList) {
         ArrayList<Movie> movies = database.getAllMovies();
+        int currentPage = 0;
+        int moviesPerPage = 10;
         boolean browse = true;
 
         while (browse) {
             System.out.println("\n| Browse Movies |\n");
             // displays the movies with while numbered too. 
-            for (int i = 0; i < movies.size(); i++) {
-                System.out.println((i + 1) + ". " + movies.get(i));
+            int start = currentPage * moviesPerPage;
+            int end = Math.min(start + moviesPerPage, movies.size());
+            for (int i = start; i < end; i++) {
+                System.out.println((i - start + 1) + ". " + movies.get(i));
             }
 
-            System.out.println("\nB: Back to Search Menu");
-            System.out.println("S: Search for a Movie");
+            System.out.println("\nS: Search for a Movie");
+            System.out.println("N: Next Page");
+            System.out.println("P: Previous Page");
+            System.out.println("W #: Add Movie to Watchlist");
+            System.out.println("V #: Add Movie to Viewed List");
+            System.out.println("B: Back to Search Menu");
             System.out.print("Enter your choice: ");
             String userInput = input.nextLine().trim();
-            // Exits the menu
-            if (userInput.equalsIgnoreCase("B")) {
-                browse = false;
-            }
-            else if (userInput.equalsIgnoreCase("S")) {
+
+
+            // The ifelse chain of menu options
+            if (userInput.equalsIgnoreCase("S")) {
                 System.out.print("Enter name of movie: ");
                 String searchTerm = input.nextLine().trim();
                 
@@ -81,9 +88,98 @@ public class SearchMenu {
                     }
                 }
             }
+            else if (userInput.equalsIgnoreCase("N")) {
+                if (end < movies.size()) {
+                    currentPage++;
+                }
+                else {
+                    System.out.println("No more pages to display.");
+                }
+            }
+            else if (userInput.equalsIgnoreCase("P")) {
+                if (currentPage > 0) {
+                    currentPage--;
+                }
+                else {
+                    System.out.println("You are on the first page");
+                }
+            }
+            else if (userInput.toUpperCase().startsWith("W ")) {
+                String numberText = userInput.substring(2).trim();
+
+                try {
+                    int movieNum = Integer.parseInt(numberText);
+                    int moviesOnPage = end - start;
+
+                    if (movieNum >= 1 && movieNum <= moviesOnPage) {
+                        int actualIndex = start + movieNum - 1;
+                        Movie selectedMovie = movies.get(actualIndex);
+                        watchlist.addMovie(selectedMovie);
+                        System.out.println(selectedMovie.getTitle() + " added to watchlist.");
+                    }
+                    else {
+                        System.out.println("Invalid movie number.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid movie number.");
+                }
+            }
+            else if (userInput.toUpperCase().startsWith("V ")) {
+                String numberText = userInput.substring(2).trim();
+
+                try {
+                    int movieNum = Integer.parseInt(numberText);
+                    int moviesOnPage = end - start;
+
+                    if (movieNum >= 1 && movieNum <= moviesOnPage) {
+                        int actualIndex = start + movieNum - 1;
+                        Movie selectedMovie = movies.get(actualIndex);
+                        viewedList.addMovie(selectedMovie);
+                        System.out.println(selectedMovie.getTitle() + " added to viewed list.");
+                    }
+                    else {
+                        System.out.println("Invalid movie number.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid movie number.");
+                }
+            }
+            else if (userInput.equalsIgnoreCase("B")) {
+                browse = false;
+            }
             else {
                 System.out.println("Invalid Option.");
             }
+        }
+    }
+    // This is where movies get added permanently to the json file, so be careful
+    private static void addNewMovie(Scanner input, MovieDatabase database) {
+        System.out.println("\n| Add New Movie |\n");
+        int year;
+
+        System.out.print("Enter Movie Title: ");
+        String title = input.nextLine().trim();
+
+        System.out.print("Enter Genre: ");
+        String genre = input.nextLine().trim();
+
+        System.out.print("Enter Movie Year: ");
+        String yearInput = input.nextLine().trim();
+
+        try {
+            year = Integer.parseInt(yearInput);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid Year.");
+            return;
+        }
+        Movie newMovie = new Movie(title, genre, year);
+        boolean added = database.addMovie(newMovie);
+
+        if (added) {
+            System.out.println(title + " added to the movie database");
+        }
+        else {
+            System.out.println("That movie already exists");
         }
     }
 }
