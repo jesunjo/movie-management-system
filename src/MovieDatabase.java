@@ -84,7 +84,7 @@ public class MovieDatabase {
         Gson gson = new Gson();
         
         try (FileWriter writer = new FileWriter("data/movies.json")) {
-            gson.toJson(movies.values(), writer);
+            gson.toJson(new ArrayList<>(movies.values(), writer);
         } catch (IOException e) {
             System.out.println("Could not save movie to file");
         }
