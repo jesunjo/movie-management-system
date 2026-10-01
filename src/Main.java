@@ -41,7 +41,7 @@ public class Main {
                     WatchlistMenu.open(input, watchlist);
                     break;
                 case 3:
-                    //something.open(input, viewedList);
+                    ViewedListMenu.open(input, viewedList);
                     break;
                 case 4:
                     System.out.println("Exiting Movie Manager...");
