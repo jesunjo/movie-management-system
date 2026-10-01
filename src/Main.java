@@ -38,7 +38,7 @@ public class Main {
                     SearchMenu.open(input, database, watchlist, viewedList); //The way this is set up opens the search menu and all its stuff.
                     break;
                 case 2:
-                    //something.open(input, watchlist);
+                    WatchlistMenu.open(input, watchlist);
                     break;
                 case 3:
                     //something.open(input, viewedList);
