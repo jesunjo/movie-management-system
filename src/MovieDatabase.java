@@ -40,27 +40,42 @@ public class MovieDatabase {
     // Searches for a movie by title. First checks for an exact hashmap match.
     // If no exact match exists, it searches for partial title matches.
     public ArrayList<Movie> search(String searchTerm) {
-        ArrayList<Movie> results = new ArrayList<>();
+    ArrayList<Movie> results = new ArrayList<>();
 
-        if (searchTerm == null || searchTerm.isBlank()) {
-            return results;
-        }
-
-        String fixedSearch = searchTerm.trim().toLowerCase();
-        Movie exactMatch = movies.get(fixedSearch);
-
-        if (exactMatch != null) {
-            results.add(exactMatch);
-            return results;
-        }
-
-        for (Movie movie : movies.values()) {
-            if (movie.getTitle().toLowerCase().contains(fixedSearch)) {
-                results.add(movie);
-            }
-        }
+    if (searchTerm == null || searchTerm.isBlank()) {
         return results;
     }
+
+    String fixedSearch = searchTerm.trim().toLowerCase();
+
+    long startTime = System.nanoTime();
+
+    Movie exactMatch = movies.get(fixedSearch);
+
+    if (exactMatch != null) {
+        results.add(exactMatch);
+
+        long endTime = System.nanoTime();
+        double time = (endTime - startTime) / 1_000_000.0;
+
+        System.out.printf("Search completed in %.3f ms%n", time);
+
+        return results;
+    }
+
+    for (Movie movie : movies.values()) {
+        if (movie.getTitle().toLowerCase().contains(fixedSearch)) {
+            results.add(movie);
+        }
+    }
+
+    long endTime = System.nanoTime();
+    double time = (endTime - startTime) / 1_000_000.0;
+
+    System.out.printf("Search completed in %.3f ms%n", time);
+
+    return results;
+}
     // Returns all movies as an ArrayList for browsing/display purposes.
     // Hashmap order is not guaranteed, so dont rely on this list being sorted.
     public ArrayList<Movie> getAllMovies() {
