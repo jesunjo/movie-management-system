@@ -23,6 +23,10 @@ public class ViewedList {
             return false;
         }
 
+        if (contains(movie.getTitle())) {
+            return false;
+        }
+
         ViewedMovieNode newNode = new ViewedMovieNode(movie, rating); 
 
         if (head == null || rating > head.getRating()) {

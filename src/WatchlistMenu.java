@@ -19,17 +19,18 @@ public class WatchlistMenu {
                 Collections.reverse(priorities);
             }
 
+            int start = currentPage * moviesPerPage;
+            int end = Math.min(start + moviesPerPage, movies.size());
+            int moviesOnPage = end - start; 
+
             System.out.println("\n| Watchlist Menu |\n");
             
             if (movies.isEmpty()) {
                 System.out.println("Your watchlist is empty.");
             }
             else {
-                int start = currentPage * moviesPerPage;
-                int end = Math.min(start + moviesPerPage, movies.size());
-
                 for (int i = start; i < end; i++) {
-                    System.out.println((i-start + 1) + ". [Priority: " + priorities.get(i) + "]" + movies.get(i));
+                    System.out.println((i-start + 1) + ". [Priority: " + priorities.get(i) + "] " + movies.get(i));
                 }
             }
             System.out.println("\nN: Next Page");
@@ -66,9 +67,6 @@ public class WatchlistMenu {
 
                 try {
                     int movieNum = Integer.parseInt(numText);
-                    int start = currentPage * moviesPerPage;
-                    int end = Math.min(start + moviesPerPage, movies.size());
-                    int moviesOnPage = end - start;
                     
                     if (movieNum >= 1 && movieNum <= moviesOnPage) {
                         int actualIndex = start + movieNum - 1;
@@ -98,9 +96,6 @@ public class WatchlistMenu {
 
                 try {
                     int movieNum = Integer.parseInt(numText);
-                    int start = currentPage * moviesPerPage;
-                    int end = Math.min(start + moviesPerPage, movies.size());
-                    int moviesOnPage = end - start;
 
                     if (movieNum >= 1 && movieNum <= moviesOnPage) {
                         int actualIndex = start + movieNum - 1;

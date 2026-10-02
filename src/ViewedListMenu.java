@@ -12,12 +12,16 @@ public class ViewedListMenu {
         while (menu) {
             // Movies and priorities from linked list
             ArrayList<Movie> movies = viewedList.toArrayList();
-            ArrayList<Float> priorities = viewedList.getRatings();
+            ArrayList<Float> ratings = viewedList.getRatings();
 
             if (!ascending) {
                 Collections.reverse(movies);
-                Collections.reverse(priorities);
+                Collections.reverse(ratings);
             }
+
+            int start = currentPage * moviesPerPage;
+            int end = Math.min(start + moviesPerPage, movies.size());
+            int moviesOnPage = end - start;
 
             System.out.println("\n| Viewed List Menu |\n");
             
@@ -25,11 +29,8 @@ public class ViewedListMenu {
                 System.out.println("Your Viewed List is empty.");
             }
             else {
-                int start = currentPage * moviesPerPage;
-                int end = Math.min(start + moviesPerPage, movies.size());
-
                 for (int i = start; i < end; i++) {
-                    System.out.println((i-start + 1) + ". [" + priorities.get(i) + "] " + movies.get(i));
+                    System.out.println((i-start + 1) + ". [" + ratings.get(i) + "] " + movies.get(i));
                 }
             }
             System.out.println("\nN: Next Page");
@@ -66,10 +67,7 @@ public class ViewedListMenu {
 
                 try {
                     int movieNum = Integer.parseInt(numText);
-                    int start = currentPage * moviesPerPage;
-                    int end = Math.min(start + moviesPerPage, movies.size());
-                    int moviesOnPage = end - start;
-                    
+
                     if (movieNum >= 1 && movieNum <= moviesOnPage) {
                         int actualIndex = start + movieNum - 1;
                         Movie selectedMovie = movies.get(actualIndex);
@@ -98,9 +96,6 @@ public class ViewedListMenu {
 
                 try {
                     int movieNum = Integer.parseInt(numText);
-                    int start = currentPage * moviesPerPage;
-                    int end = Math.min(start + moviesPerPage, movies.size());
-                    int moviesOnPage = end - start;
 
                     if (movieNum >= 1 && movieNum <= moviesOnPage) {
                         int actualIndex = start + movieNum - 1;
