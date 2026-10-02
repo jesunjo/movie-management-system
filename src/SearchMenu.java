@@ -9,7 +9,7 @@ public class SearchMenu {
         while (search) {
             System.out.println("\n| Search Movies Menu |\n");
             System.out.println("1. Browse Movies");
-            System.out.println("2. Add New Movie");
+            System.out.println("2. Add New Movie to Dataset");
             System.out.println("3. Back to Main Menu");
             System.out.print("Enter your choice: ");
 
@@ -114,8 +114,14 @@ public class SearchMenu {
                     if (movieNum >= 1 && movieNum <= moviesOnPage) {
                         int actualIndex = start + movieNum - 1;
                         Movie selectedMovie = movies.get(actualIndex);
-                        watchlist.addMovie(selectedMovie);
-                        System.out.println(selectedMovie.getTitle() + " added to watchlist.");
+                        boolean added = watchlist.addMovie(selectedMovie);
+
+                        if (added) {
+                            System.out.println(selectedMovie.getTitle() + " added to watchlist.");
+                        }
+                        else {
+                            System.out.println(selectedMovie.getTitle() + " is already in watchlist.");
+                        }
                     }
                     else {
                         System.out.println("Invalid movie number.");
@@ -134,8 +140,14 @@ public class SearchMenu {
                     if (movieNum >= 1 && movieNum <= moviesOnPage) {
                         int actualIndex = start + movieNum - 1;
                         Movie selectedMovie = movies.get(actualIndex);
-                        viewedList.addMovie(selectedMovie);
-                        System.out.println(selectedMovie.getTitle() + " added to viewed list.");
+                        boolean added = viewedList.addMovie(selectedMovie);
+
+                        if (added) {
+                            System.out.println(selectedMovie.getTitle() + " added to viewed list.");
+                        }
+                        else {
+                            System.out.println(selectedMovie.getTitle() + " is already in viewed list.");
+                        }
                     }
                     else {
                         System.out.println("Invalid movie number.");
