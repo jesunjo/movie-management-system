@@ -29,7 +29,7 @@ public class ViewedListMenu {
                 int end = Math.min(start + moviesPerPage, movies.size());
 
                 for (int i = start; i < end; i++) {
-                    System.out.println((i-start + 1) + ". [" + priorities.get(i) + "]" + movies.get(i));
+                    System.out.println((i-start + 1) + ". [" + priorities.get(i) + "] " + movies.get(i));
                 }
             }
             System.out.println("\nN: Next Page");
@@ -106,19 +106,24 @@ public class ViewedListMenu {
                         int actualIndex = start + movieNum - 1;
                         Movie selectedMovie = movies.get(actualIndex);
                         System.out.print("Enter New Rating: ");
-                        String priorityInput = input.nextLine().trim();
+                        String ratingInput = input.nextLine().trim();
 
                         try {
-                            float newRating = Float.parseFloat(priorityInput);
-                            boolean changed  = viewedList.changeRating(selectedMovie.getTitle(), newRating);
+                            float newRating = Float.parseFloat(ratingInput);
 
-                            if (changed) {
-                                System.out.println("Rating Updated");
+                            if (newRating < 0.0f || newRating > 10.0) {
+                                System.out.println("Rating must be between 0.0 and 10.0");
+                                continue;
                             }
-                            else {
+                            
+                            newRating = Math.round(newRating * 10.0f) / 10.0f;
+                            boolean changed = viewedList.changeRating(selectedMovie.getTitle(), newRating);
+                            
+                            if (changed) {
+                                System.out.println("Rating updated");
+                            } else {
                                 System.out.println("Could not update rating");
                             }
-                            currentPage = 0;
                         } catch (Exception e) {
                             System.out.println("Invalid rating input");
                         }

@@ -25,16 +25,18 @@ public class ViewedList {
 
         ViewedMovieNode newNode = new ViewedMovieNode(movie, rating); 
 
-        if (head == null) {
+        if (head == null || rating > head.getRating()) {
+            newNode.setNext(head);
             head = newNode;
             size++;
             return true;
         }
         ViewedMovieNode current = head;
 
-        while (current.getNext() != null) {
+        while (current.getNext() != null && current.getNext().getRating() >= rating) {
             current = current.getNext();
         }
+        newNode.setNext(current.getNext());
         current.setNext(newNode);
         size++;
         return true;
@@ -85,16 +87,29 @@ public class ViewedList {
     }
 
     public boolean changeRating(String title, float newRating) {
+        Movie movie = findMovie(title);
+
+        if (movie == null) {
+            return false;
+        }
+
+        removeMovie(title);
+        return addMovie(movie, newRating);
+    }
+
+    public Movie findMovie(String title) {
+        if (title == null) {
+            return null;
+        }
         ViewedMovieNode current = head;
 
         while (current != null) {
             if (current.getMovie().getTitle().equalsIgnoreCase(title.trim())) {
-                current.setRating(newRating);
-                return true;
+                return current.getMovie();
             }
             current = current.getNext();
         }
-        return false;
+        return null;
     }
 
     public ArrayList<Movie> toArrayList() {
