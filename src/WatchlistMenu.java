@@ -36,7 +36,7 @@ public class WatchlistMenu {
             System.out.println("\nN: Next Page");
             System.out.println("P: Previous Page");
             System.out.println("R #: Remove Movie");
-            System.out.println("C #: Modify Priority");
+            System.out.println("M #: Modify Priority");
             System.out.println("S: Sort Priority Ascending/Descending");
             System.out.println("B: Back to Main Menu");
             System.out.print("Enter your choice: ");
@@ -91,7 +91,7 @@ public class WatchlistMenu {
                 }
             }
             // Change
-            else if (userInput.toUpperCase().startsWith("C ")) {
+            else if (userInput.toUpperCase().startsWith("M ")) {
                 String numText = userInput.substring(2).trim();
 
                 try {

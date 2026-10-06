@@ -36,7 +36,7 @@ public class ViewedListMenu {
             System.out.println("\nN: Next Page");
             System.out.println("P: Previous Page");
             System.out.println("R #: Remove Movie");
-            System.out.println("C #: Modify Rating");
+            System.out.println("M #: Modify Rating");
             System.out.println("S: Sort Ratings Ascending/Descending");
             System.out.println("B: Back to Main Menu");
             System.out.print("Enter your choice: ");
@@ -91,7 +91,7 @@ public class ViewedListMenu {
                 }
             }
             // Change
-            else if (userInput.toUpperCase().startsWith("C ")) {
+            else if (userInput.toUpperCase().startsWith("M ")) {
                 String numText = userInput.substring(2).trim();
 
                 try {
